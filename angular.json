@@ -31,6 +31,9 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "./node_modules/flexboxgrid/dist/flexboxgrid.min.css",
+              "./node_modules/swiper/swiper.min.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -99,9 +102,20 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.scss"
             ],
             "scripts": []
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "red-apoyo-front:build:production",
+            "firebaseProject": "fir-d46b6",
+            "firebaseHostingSite": "fir-d46b6"
           }
         }
       }
