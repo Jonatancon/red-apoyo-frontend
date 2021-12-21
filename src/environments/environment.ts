@@ -13,10 +13,13 @@ export const environment = {
     messagingSenderId: '861489680453',
     measurementId: 'G-YNSJ0SN1RC',
   },
+
   production: false,
   AUTHENTICATION: 'http://localhost:8080/auth',
   COUNTRY_AUTHENTICATION: 'eUYlF6Eka0atR1PjBoRDOHkXLoFft2fwZHJizbXqQS_C589BvdHO1TBcmKbYoPFsNZg',
   COUNTRY_URL: 'https://www.universal-tutorial.com/api',
+  HOUSE_URL: 'http://localhost:8080/api',
+
   firebaseConfig : {
     apiKey: "AIzaSyCGs9Rgs3DsBo8iskUYu4rA4ayJG1uvixc",
     authDomain: "fir-d46b6.firebaseapp.com",
