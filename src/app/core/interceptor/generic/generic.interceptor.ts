@@ -3,14 +3,19 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor, HttpErrorResponse
+  HttpInterceptor, HttpErrorResponse, HttpContextToken, HttpContext
 } from '@angular/common/http';
 import {catchError, concatMap, Observable, throwError} from 'rxjs';
 import {TokenService} from "../../services/token/token.service";
 import {UserService} from "../../services/authentication/user.service";
 import {TokenModel} from "../../models/token.model";
 
+const CHECK_API = new HttpContextToken<boolean>( () => false );
 const AUTHORIZATION = 'Authorization';
+
+export function checkApi(){
+  return new HttpContext().set(CHECK_API, true);
+}
 
 @Injectable()
 export class GenericInterceptor implements HttpInterceptor {
@@ -24,7 +29,9 @@ export class GenericInterceptor implements HttpInterceptor {
     if (!this.tokenService.isLogged()){
       return next.handle(request);
     }
-    request = this.addToken(request);
+    if (request.context.get(CHECK_API)) {
+      request = this.addToken(request);
+    }
 
     return next.handle(request).pipe(catchError((error: HttpErrorResponse) => {
       if (error.status === 401) {

@@ -7,13 +7,16 @@ import {NavComponent} from "./components/nav/nav.component";
 
 
 @NgModule({
-  declarations: [
-    LayoutComponent,
-    NavComponent
-  ],
-  imports: [
-    CommonModule,
-    WebSideRoutingModule,
-  ]
+    declarations: [
+        LayoutComponent,
+        NavComponent
+    ],
+    exports: [
+        NavComponent
+    ],
+    imports: [
+        CommonModule,
+        WebSideRoutingModule,
+    ]
 })
 export class WebSideModule { }

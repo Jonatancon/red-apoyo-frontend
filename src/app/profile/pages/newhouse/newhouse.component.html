@@ -1,0 +1,83 @@
+<form [formGroup]="form" (ngSubmit)="saveHouse($event)" class="center-lg" >
+  <mat-card>
+    <mat-card-header class="center-lg">
+      <mat-card-title>Add new House</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col-xs">
+          <mat-form-field>
+            <mat-label>Select Country</mat-label>
+            <mat-select formControlName="pais">
+              <mat-option (click)="loadState(country.country_name)"  *ngFor="let country of countries" [value]="country.country_name">
+                {{country.country_name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs">
+          <mat-form-field>
+            <mat-label>Select State</mat-label>
+            <mat-select formControlName="estado">
+              <mat-option (click)="loadCities(state.state_name)" *ngFor="let state of states" [value]="state.state_name">
+                {{state.state_name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs">
+          <mat-form-field>
+            <mat-label>Select City</mat-label>
+            <mat-select formControlName="ciudad">
+              <mat-option  *ngFor="let city of cities" [value]="city.city_name">
+                {{city.city_name}}
+              </mat-option>
+              <mat-option [value]="">
+                {{ 'Select city' }}
+              </mat-option>
+              <mat-option *ngIf="cities.length === 0 && states.length > 0 " [value]="cityOptional">
+                {{ cityOptional }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs">
+          <mat-form-field>
+            <input placeholder="Direccion" formControlName="direccion" matInput type="text">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs">
+          <mat-form-field>
+            <input placeholder="Telefono" formControlName="telefono" matInput type="text">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-4">
+          <input type="file" accept=".png, .jpg"  (change)="uploadFoto($event)">
+        </div>
+        <div class="col-xs-6">
+          <mat-progress-bar mode="determinate" [value]="uploadPercent$ | async"></mat-progress-bar>
+          <div *ngIf="(urlImage$ | async) as img">
+            <img [src]="img" [alt]="nameImage">
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <div class="row">
+        <div class="col-xs">
+          <button mat-raised-button color="accent" type="submit" [disabled]="form.invalid">Add House</button>
+        </div>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</form>
