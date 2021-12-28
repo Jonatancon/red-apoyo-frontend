@@ -1,0 +1,29 @@
+<div class="house--grid">
+  <app-house
+    *ngFor="let house of houses"
+    [house] = "house"
+    (showHouse)="onShowDetail($event)"
+  ></app-house>
+</div>
+<div class="house-detail" [class.active]="showHouseDetail">
+  {{ statusDetail }}
+  <div *ngIf="houseChosen">
+    <button (click)="toggleHouseDetail()">Close</button>
+    <h1>{{ houseChosen.pais }}</h1>
+    <swiper
+      [slidesPerView]="1"
+    >
+      <ng-template swiperSlide >
+        <img *ngIf="img; else elseImg" [src]="img" alt=""
+             (error)="imgError()"
+        >
+      </ng-template>
+      <ng-template #elseImg>
+        <img [src]="imgDefault" alt="">
+      </ng-template>
+    </swiper>
+    <p>{{ houseChosen.estado }}, {{ houseChosen.ciudad }}</p>
+    <p>{{ houseChosen.direccion }}, {{ houseChosen.telefono }}</p>
+    <p>Propietario: {{ houseChosen.idPropietario }}</p>
+  </div>
+</div>
