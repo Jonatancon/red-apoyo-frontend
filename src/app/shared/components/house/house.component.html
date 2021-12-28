@@ -1,0 +1,9 @@
+<a [routerLink]="['.', house.idCasa]">
+  <app-img
+    *ngIf="house.urlFoto"
+    [img] = "house.urlFoto"
+  ></app-img>
+</a>
+<h2 class="title">{{house.ciudad | uppercase}}</h2>
+<p class="category">{{house.pais}}, {{house.estado}}</p>
+<a routerLink="." [queryParams]="{house: house.idCasa}">Ver Detalle</a>

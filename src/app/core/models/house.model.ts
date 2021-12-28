@@ -1,5 +1,6 @@
 export interface HouseModel {
   idCasa?: string;
+  idPropietario?: string;
   direccion: string;
   pais: string;
   estado: string;

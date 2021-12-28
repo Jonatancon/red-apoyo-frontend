@@ -19,6 +19,8 @@ export const environment = {
   COUNTRY_AUTHENTICATION: 'eUYlF6Eka0atR1PjBoRDOHkXLoFft2fwZHJizbXqQS_C589BvdHO1TBcmKbYoPFsNZg',
   COUNTRY_URL: 'https://www.universal-tutorial.com/api',
   HOUSE_URL: 'http://localhost:8080/api',
+  RESERVA_URL: 'http://localhost:8080/api/reserva',
+  CALIFICACION_URL: 'http://localhost:8080/api/calificacion',
 
   firebaseConfig : {
     apiKey: "AIzaSyCGs9Rgs3DsBo8iskUYu4rA4ayJG1uvixc",

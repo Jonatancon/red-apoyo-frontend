@@ -21,4 +21,12 @@ export class HouseService {
       context: checkApi()
     });
   }
+
+  getAllHouse() {
+    return this.httpClient.get<HouseModel[]>(`${this.urlHouse}/casas/busqueda/todas`);
+  }
+
+  getOneHouse(id:String) {
+    return this.httpClient.get<HouseModel>(`${this.urlHouse}/casas/busqueda/${id}`);
+  }
 }

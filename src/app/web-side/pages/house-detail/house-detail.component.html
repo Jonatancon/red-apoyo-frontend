@@ -1,0 +1,49 @@
+<div class="page-house">
+  <button (click)="goToBack()">Back</button>
+  <div class="detail" *ngIf="house">
+    <h2 *ngIf="reputacion > 0" >{{reputacion/calificacion.length}}</h2>
+    <h2 *ngIf="reputacion === 0" >No hay suficientes calificaciones para esta casa</h2>
+    <div class="gallery">
+      <swiper [slidesPerView]='1'>
+        <ng-template swiperSlide >
+          <img *ngIf="img; else elseImg" [src]="img" alt=""
+               (error)="imgError()"
+          >
+        </ng-template>
+        <ng-template #elseImg>
+          <img [src]="imgDefault" alt="">
+        </ng-template>
+      </swiper>
+    </div>
+    <div>
+      <h1>{{ house?.pais }}</h1>
+      <h2>{{ house?.estado }}</h2>
+      <p>{{ house?.ciudad }}</p>
+      <p>{{ house?.telefono }}</p>
+      <p>{{ house?.direccion }}</p>
+      <p>{{ house?.idPropietario }}</p>
+    </div>
+    <div>
+      <form (ngSubmit)="onSaveReserver($event)">
+        <mat-form-field appearance="fill">
+          <mat-label>Enter a date range</mat-label>
+          <mat-date-range-input [formGroup]="form" [rangePicker]="picker">
+            <input matStartDate  formControlName="fechaInicial" placeholder="Start date">
+            <input matEndDate formControlName="fechaFinal" placeholder="End date">
+          </mat-date-range-input>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+      </form>
+      <div>
+        <button>Reservar</button>
+      </div>
+    </div>
+    <div *ngIf="calificacion">
+      <p *ngFor="let comentario of calificacion">
+        {{comentario.comentario}}.....
+        <span>{{comentario.idUsuario}}</span>
+      </p>
+    </div>
+  </div>
+</div>
