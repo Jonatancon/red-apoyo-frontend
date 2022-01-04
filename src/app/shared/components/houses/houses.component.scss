@@ -1,7 +1,14 @@
-.house--grid {
-  display: flex;
-  flex-direction: column;
-  padding: 0 1em;
+.house--grid{
+  display: grid;
+  gap: 1rem;
+  grid-auto-flow: dense;
+  grid-auto-rows: 22rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+}
+
+app-house{
+  margin: 0.5rem;
+  padding: 0.5rem;
 }
 
 .house-detail {
@@ -27,20 +34,4 @@ img {
   max-width: 100%;
 }
 
-// tablets
-@media screen and (min-width: 40em) and (max-width: 63.9em){
-  .house--grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 15px;
-  }
-}
 
-// web
-@media screen and (min-width: 64em){
-  .house--grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-gap: 15px;
-  }
-}

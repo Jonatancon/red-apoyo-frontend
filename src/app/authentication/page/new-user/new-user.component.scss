@@ -1,0 +1,44 @@
+mat-icon{
+  width: 100%;
+  color: var(--EAST-BAY);
+  font-size: 5rem;
+  text-align: center;
+}
+
+.grid{
+  margin: 2rem 0rem 2rem 0rem;
+  padding: 0rem 7rem 0rem 7rem;
+  display: grid;
+  gap: 1rem;
+  grid-auto-flow: dense;
+  grid-auto-rows: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
+
+  div{
+    grid-column: span 2;
+  }
+}
+
+.select{
+  flex-grow: 3;
+
+  nz-select{
+    width: 100%;
+    border-radius: 50px;
+  }
+}
+
+.actions{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spam{
+  margin: 1rem;
+  p{
+    width: 100%;
+    text-align: center;
+  }
+}

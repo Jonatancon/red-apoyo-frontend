@@ -1,9 +1,28 @@
-<a [routerLink]="['.', house.idCasa]">
-  <app-img
-    *ngIf="house.urlFoto"
-    [img] = "house.urlFoto"
-  ></app-img>
-</a>
-<h2 class="title">{{house.ciudad | uppercase}}</h2>
-<p class="category">{{house.pais}}, {{house.estado}}</p>
-<a routerLink="." [queryParams]="{house: house.idCasa}">Ver Detalle</a>
+<nz-card [nzCover]="coverTemplate" [nzActions]="[actionDetails]">
+  <nz-card-meta [nzDescription]="description">
+  </nz-card-meta>
+</nz-card>
+
+<ng-template #coverTemplate>
+  <a [routerLink]="['.', house.idCasa]">
+    <app-img
+      *ngIf="house.urlFoto"
+      [img] = "house.urlFoto"
+    ></app-img>
+  </a>
+</ng-template>
+
+<ng-template #actionDetails>
+  <a nz-button routerLink="." (click)="onShowDetails()" [queryParams]="{house: house.idCasa}">Ver Detalle</a>
+</ng-template>
+
+<ng-template #description class="description">
+  <nz-descriptions nzTitle="{{ house.ciudad }}" [nzColumn]="2">
+    <nz-descriptions-item nzTitle="Estado">{{ house.estado }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Pais">{{ house.pais }}</nz-descriptions-item>
+  </nz-descriptions>
+</ng-template>
+
+
+
+

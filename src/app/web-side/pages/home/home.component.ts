@@ -12,6 +12,7 @@ export class HomeComponent implements OnInit {
 
   house: HouseModel[] = [];
   houseId: string | null = null;
+  loading: boolean = true;
 
   constructor(
     private houseService: HouseService,
@@ -22,6 +23,7 @@ export class HomeComponent implements OnInit {
     this.houseService.getAllHouse().subscribe(
       (data) => {
         this.house = data;
+        this.loading = false;
       });
     this.route.queryParamMap.subscribe(params => {
       this.houseId = params.get('house');

@@ -13,7 +13,6 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
 import {AngularFireModule} from "@angular/fire/compat";
 import {AngularFireStorageModule, BUCKET} from "@angular/fire/compat/storage";
 
-
 @NgModule({
   declarations: [
     AppComponent,

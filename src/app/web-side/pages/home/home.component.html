@@ -1,4 +1,8 @@
-<app-houses
-  [houseId]="houseId"
-  [houses]="house"
-></app-houses>
+<nz-skeleton  [nzLoading]="loading" [nzParagraph]="{ rows: 8 }" [nzActive]="true">
+  <app-houses
+    [houseId]="houseId"
+    [houses]="house"
+  ></app-houses>
+</nz-skeleton>
+
+

@@ -31,15 +31,9 @@ export class HousesComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  toggleHouseDetail() {
-    this.showHouseDetail = !this.showHouseDetail;
-  }
-
   onShowDetail(id:string) {
     this.statusDetail = 'loading';
-    if (!this.showHouseDetail) {
-      this.showHouseDetail = true;
-    }
+    this.open();
     this.houseService.getOneHouse(id).subscribe(
       (data) => {
         this.houseChosen = data;
@@ -50,6 +44,14 @@ export class HousesComponent implements OnInit {
         this.statusDetail = 'error';
       }
     );
+  }
+
+  open() {
+    this.showHouseDetail = true;
+  }
+
+  close() {
+    this.showHouseDetail = false;
   }
 
   imgError() {

@@ -1,0 +1,77 @@
+nz-breadcrumb {
+  margin: 16px 0;
+}
+
+.inner-content {
+  height: 65vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  gap: 5rem 0;
+}
+
+form{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+
+  button{
+    background-color: var(--SINBAD);
+    color: white;
+  }
+  button:disabled{
+    background-color: #7b7c7e;
+    color: white;
+  }
+}
+
+.select{
+  flex-grow: 3;
+
+  nz-select{
+    width: 100%;
+    border-radius: 50px;
+  }
+}
+
+.second-content{
+  display: flex;
+  justify-content: center;
+  align-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+
+  h3{
+    text-align: center;
+    color: var(--FERN);
+    width: 100%;
+  }
+
+  button{
+    width: 100%;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    color: white;
+    background-color: var(--EAST-BAY);
+    gap: 10px;
+  }
+
+  i{
+    font-size: 30px;
+  }
+}
+
+nz-footer {
+  margin-top: 1.5rem;
+  align-items: flex-end;
+  background-color: var(--EAST-BAY);
+  text-align: center;
+}
+
