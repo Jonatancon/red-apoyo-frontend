@@ -1,99 +1,98 @@
-<form [formGroup]="form" (ngSubmit)="saveUser($event)" class="center-lg">
-  <mat-card>
-    <mat-card-header class="center-lg">
-      <mat-card-title>Crear Usuario</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="row">
-        <div class="col-xs">
-          <mat-form-field>
-            <input placeholder="Nombre Usuario"
-                   formControlName="nombreUsuario"
-                   matInput type="text"
-                   (input)="form.get('nombreUsuario')?.setValue(form.get('nombreUsuario')?.value.toUpperCase())"
-            >
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs">
-          <mat-form-field>
-            <input placeholder="Nombres" formControlName="nombres" matInput type="text">
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs">
-          <mat-form-field>
-            <input placeholder="Apellidos" formControlName="apellidos" matInput type="text">
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs">
-          <mat-form-field>
-            <mat-label>Select Country</mat-label>
-            <mat-select formControlName="pais">
-              <mat-option (click)="loadState(country.country_name)"  *ngFor="let country of countries" [value]="country.country_name">
-                {{country.country_name}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs">
-          <mat-form-field>
-            <mat-label>Select State</mat-label>
-            <mat-select formControlName="estado">
-              <mat-option (click)="loadCities(state.state_name)" *ngFor="let state of states" [value]="state.state_name">
-                {{state.state_name}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs">
-          <mat-form-field>
-            <mat-label>Select City</mat-label>
-            <mat-select formControlName="ciudad">
-              <mat-option  *ngFor="let city of cities" [value]="city.city_name">
-                {{city.city_name}}
-              </mat-option>
-              <mat-option [value]="">
-                {{ 'Select city' }}
-              </mat-option>
-              <mat-option *ngIf="cities.length === 0 && states.length > 0 " [value]="cityOptional">
-                {{ cityOptional }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs">
-          <mat-form-field>
-            <mat-label>Enter your password</mat-label>
-            <input placeholder="Password" formControlName="password" matInput [type]="hide ? 'password' : 'text'">
-            <a mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </a>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs">
-          <mat-checkbox class="example-margin" formControlName="check">Quiero ser Anfitrion</mat-checkbox>
-        </div>
-      </div>
-    </mat-card-content>
-    <mat-card-actions>
-      <div class="row">
-        <div class="col-xs">
-          <button mat-raised-button color="accent" type="submit" [disabled]="form.invalid">Guardar Usuario</button>
-        </div>
-      </div>
-    </mat-card-actions>
-  </mat-card>
+<form [formGroup]="form" (ngSubmit)="saveUser($event)">
+  <div class="logo">
+    <mat-icon aria-hidden="false" aria-label="Example home icon">person_add</mat-icon>
+    <nz-divider nzText="Crear Un Nuevo Perfil"></nz-divider>
+  </div>
+  <div class="grid">
+    <div>
+      <nz-input-group [nzPrefix]="prefixTemplateUser">
+        <input type="text"
+               nz-input
+               formControlName="nombreUsuario"
+               placeholder="Ingresa tu Nombre de Usuario"
+               (input)="form.get('nombreUsuario')?.setValue(form.get('nombreUsuario')?.value.toUpperCase())"/>
+        <ng-template #prefixTemplateUser><i nz-icon nzType="user"></i></ng-template>
+      </nz-input-group>
+    </div>
+    <div>
+      <nz-input-group [nzPrefix]="prefixTemplateUser">
+        <input type="text"
+               nz-input
+               formControlName="nombres"
+               placeholder="Ingresa tus Nombres"/>
+      </nz-input-group>
+    </div>
+    <div>
+      <nz-input-group [nzPrefix]="prefixTemplateUser">
+        <input type="text"
+               nz-input
+               formControlName="apellidos"
+               placeholder="Ingresa tus Apellidos"/>
+      </nz-input-group>
+    </div>
+    <div class="select">
+      <nz-select nzShowSearch
+                 nzSize="large"
+                 nzAllowClear
+                 nzPlaceHolder="Ingresa el pais"
+                 formControlName="pais"
+                 [nzShowArrow]="false" >
+        <nz-option *ngFor="let country of countries"
+                   [nzLabel]="country.country_name" [nzValue]="country.country_name"></nz-option>
+      </nz-select>
+    </div>
+    <div class="select">
+      <nz-select nzShowSearch
+                 nzSize="large"
+                 nzAllowClear
+                 nzPlaceHolder="Ingresa el estado"
+                 formControlName="estado"
+                 (click)="loadState(form.get('pais')?.value)"
+                 [nzShowArrow]="false" >
+        <nz-option *ngFor="let state of states"
+                   [nzLabel]="state.state_name" [nzValue]="state.state_name"></nz-option>
+      </nz-select>
+    </div>
+    <div class="select">
+      <nz-select nzShowSearch
+                 nzSize="large"
+                 nzAllowClear
+                 nzPlaceHolder="Ingresa la ciudad"
+                 formControlName="ciudad"
+                 (click)="loadCities(form.get('estado')?.value)"
+                 [nzShowArrow]="false" >
+        <nz-option *ngFor="let city of cities"
+                   [nzLabel]="city.city_name" [nzValue]="city.city_name"></nz-option>
+        <nz-option *ngIf="cities.length === 0" [nzLabel]="form.get('estado')?.value"
+                   [nzValue]="form.get('estado')?.value"></nz-option>
+      </nz-select>
+    </div>
+    <div>
+      <nz-input-group [nzSuffix]="suffixTemplate">
+        <input
+          [type]="hide ? 'text' : 'password'"
+          nz-input
+          placeholder="Ingresa tu contraseña"
+          formControlName="password"
+        />
+      </nz-input-group>
+      <ng-template #suffixTemplate>
+        <i nz-icon [nzType]="hide ? 'eye' : 'eye-invisible'" (click)="hide = !hide"></i>
+      </ng-template>
+    </div>
+    <div>
+      <label nz-checkbox formControlName="check">Quiero ser Anfitrion</label>
+    </div>
+  </div>
+  <div class="actions">
+    <button nz-button nzSize="large"
+            [disabled]="form.invalid"
+            [nzLoading]="loading"
+            type="submit">
+      Crear Usuario
+    </button>
+  </div>
+  <div class="spam">
+    <p>Ya tienes una cuenta?<a routerLink="/user/login"> Inica Seccion</a></p>
+  </div>
 </form>

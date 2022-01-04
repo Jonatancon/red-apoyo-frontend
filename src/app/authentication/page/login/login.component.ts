@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../../core/services/authentication/user.service";
+import {NzNotificationService} from "ng-zorro-antd/notification";
+import {Router} from "@angular/router";
+import {TokenService} from "../../../core/services/token/token.service";
 
 @Component({
   selector: 'app-login',
@@ -12,10 +15,14 @@ export class LoginComponent implements OnInit {
   // @ts-ignore
   form: FormGroup;
   hide = true;
+  loading = false;
 
   constructor(
     private formBuilder: FormBuilder,
-    private userService:UserService
+    private userService:UserService,
+    private notificacion: NzNotificationService,
+    private router: Router,
+    private tokenService: TokenService
   ) {
     this.buildForm();
   }
@@ -25,12 +32,17 @@ export class LoginComponent implements OnInit {
 
   login(event:Event) {
     event.preventDefault();
+    this.loading = true;
     this.userService.loginUser(this.form.value).subscribe(
       data => {
-        console.log(data)
+        this.createNotificacion('success', 'Ingreso Correcto',
+          `Bienvenido: ${this.tokenService.getUserName()}`);
+        this.loading = false;
+        this.router.navigate(['/home']);
       },
       error => {
-        console.log(error);
+        this.createNotificacion('error', 'Algo Salio Mal', 'Verifica tus datos, Algo esta mal');
+        this.loading = false;
       }
     );
   }
@@ -40,6 +52,10 @@ export class LoginComponent implements OnInit {
       nombreUsuario: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
+  }
+
+  createNotificacion(type:string, title:string, content:string){
+    this.notificacion.create(type, title, content);
   }
 
 }

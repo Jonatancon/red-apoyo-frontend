@@ -1,10 +1,46 @@
-<nz-layout class="layout">
-  <nz-header>
-    <div class="logo"></div>
-    <ul nz-menu nzTheme="dark" nzMode="horizontal">
-      <li nz-menu-item>nav 1</li>
-      <li nz-menu-item>nav 2</li>
-      <li nz-menu-item>nav 3</li>
+<nz-header>
+
+  <div class="logo">
+    <a routerLink="/home"><span class="material-icons md-48">travel_explore</span></a>
+  </div>
+
+  <nav>
+    <ul class="nav-links">
+      <li *ngIf="!tokenService.isAnfitrion()"><a routerLinkActive="active">Se Anfitrion</a></li>
+      <li><a routerLinkActive="active" routerLink="/">Home</a></li>
     </ul>
-  </nz-header>
-</nz-layout>
+  </nav>
+
+  <button nz-button nzSize="large" nzShape="circle" nzGhost="true" nz-dropdown [nzDropdownMenu]="menu">
+    <span class="material-icons md-30" nz-icon>person_pin</span>
+  </button>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu class="sub-menu">
+      <li nz-menu-item *ngIf="!tokenService.isLogged()">
+        <a routerLink="/user/new-user">
+          <span class="material-icons">add_circle_outline</span>
+          Crear Cuenta
+        </a>
+      </li>
+      <li nz-menu-item *ngIf="!tokenService.isLogged()">
+        <a routerLink="/user/login">
+          <span class="material-icons">input</span>
+          Iniciar Seecion
+        </a>
+      </li>
+      <li nz-menu-item *ngIf="tokenService.isLogged()">
+        <a routerLink="">
+          <span class="material-icons">manage_accounts</span>
+          Perfil de {{tokenService.getUserName()}}
+        </a>
+      </li>
+      <li nz-menu-item *ngIf="tokenService.isLogged()">
+        <a (click)="logout()">
+          <span class="material-icons">logout</span>
+          Cerrar Seccion
+        </a>
+      </li>
+    </ul>
+  </nz-dropdown-menu>
+
+</nz-header>

@@ -1,14 +1,6 @@
-<div>
-  <header>
-    <h3>Authentication Service</h3>
-  </header>
-  <nav>
-    <ul>
-      <li><a routerLink="new-user">New User Page</a></li>
-      <li><a routerLink="login">Login Page</a></li>
-    </ul>
-  </nav>
-  <main>
+<nz-layout class="layout">
+  <app-nav></app-nav>
+  <nz-content>
     <router-outlet></router-outlet>
-  </main>
-</div>
+  </nz-content>
+</nz-layout>

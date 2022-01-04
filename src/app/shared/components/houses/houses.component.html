@@ -5,25 +5,28 @@
     (showHouse)="onShowDetail($event)"
   ></app-house>
 </div>
-<div class="house-detail" [class.active]="showHouseDetail">
-  {{ statusDetail }}
-  <div *ngIf="houseChosen">
-    <button (click)="toggleHouseDetail()">Close</button>
-    <h1>{{ houseChosen.pais }}</h1>
-    <swiper
-      [slidesPerView]="1"
-    >
-      <ng-template swiperSlide >
-        <img *ngIf="img; else elseImg" [src]="img" alt=""
-             (error)="imgError()"
-        >
-      </ng-template>
+
+<nz-drawer [nzVisible]="showHouseDetail" [nzWidth]="640" [nzClosable]="false" (nzOnClose)="close()">
+  <ng-container *nzDrawerContent>
+    <p class="title"> Detalles de la Vivienda</p>
+    <div>
+      <img *ngIf="img; else elseImg" [src]="img" alt=""
+           (error)="imgError()"
+      >
       <ng-template #elseImg>
         <img [src]="imgDefault" alt="">
       </ng-template>
-    </swiper>
-    <p>{{ houseChosen.estado }}, {{ houseChosen.ciudad }}</p>
-    <p>{{ houseChosen.direccion }}, {{ houseChosen.telefono }}</p>
-    <p>Propietario: {{ houseChosen.idPropietario }}</p>
-  </div>
-</div>
+    </div>
+    <nz-divider></nz-divider>
+    <nz-descriptions [nzColumn]="2" nzTitle="Informacion de la Vivienda">
+      <nz-descriptions-item nzTitle="Pais De origen" [nzSpan]="1">{{ houseChosen?.pais }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Estado" [nzSpan]="1">{{ houseChosen?.estado }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Ciudad" [nzSpan]="1">{{ houseChosen?.ciudad }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Direccion" [nzSpan]="1">{{ houseChosen?.direccion }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Telefono" [nzSpan]="1">{{ houseChosen?.telefono }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Propietario" [nzSpan]="1">{{ houseChosen?.idPropietario }}</nz-descriptions-item>
+    </nz-descriptions>
+  </ng-container>
+</nz-drawer>
+
+

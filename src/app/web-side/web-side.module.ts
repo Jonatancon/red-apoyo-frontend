@@ -6,11 +6,10 @@ import {LayoutComponent} from "./components/layout/layout.component";
 import { HomeComponent } from './pages/home/home.component';
 import {SharedModule} from "../shared/shared.module";
 import { HouseDetailComponent } from './pages/house-detail/house-detail.component';
-import {SwiperModule} from "swiper/angular";
 import {MaterialModule} from "../material/material.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { StartComponent } from './pages/start/start.component';
-
+import {ZorroModule} from "../zorro/zorro.module";
 
 @NgModule({
     declarations: [
@@ -25,10 +24,10 @@ import { StartComponent } from './pages/start/start.component';
         CommonModule,
         WebSideRoutingModule,
         SharedModule,
-        SwiperModule,
         MaterialModule,
         ReactiveFormsModule,
-        FormsModule
+        FormsModule,
+        ZorroModule
     ]
 })
 export class WebSideModule { }

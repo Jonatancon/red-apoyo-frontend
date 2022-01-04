@@ -47,7 +47,7 @@ export class TokenService {
     const payLoadDecoded = atob(payLoad);
     const values = JSON.parse(payLoadDecoded);
 
-    return values.sup;
+    return values.sub;
   }
 
   isAnfitrion (): boolean {

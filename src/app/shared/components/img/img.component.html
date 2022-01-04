@@ -1,4 +1,5 @@
 <img
+  nz-image
   (load)="imgLoaded()"
   (error)="imgError()"
   [src]="img"
@@ -6,5 +7,5 @@
 >
 
 <ng-template #elseImg>
-  <img [src]="imageDefault" alt="">
+  <img nz-image [src]="imageDefault" alt="">
 </ng-template>

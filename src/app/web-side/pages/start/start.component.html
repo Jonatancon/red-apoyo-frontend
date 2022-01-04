@@ -1,1 +1,56 @@
-<p>start works!</p>
+<div class="inner-content">
+  <form [formGroup]="form" (ngSubmit)="onConsult($event)">
+    <div class="select">
+      <nz-select nzShowSearch
+                 nzSize="large"
+                 nzAllowClear
+                 nzPlaceHolder="Ingresa el pais"
+                 formControlName="pais"
+                 [nzShowArrow]="false" >
+        <nz-option *ngFor="let country of countries"
+                   [nzLabel]="country.country_name" [nzValue]="country.country_name"></nz-option>
+      </nz-select>
+    </div>
+    <div class="select">
+      <nz-select nzShowSearch
+                 nzSize="large"
+                 nzAllowClear
+                 nzPlaceHolder="Ingresa el estado"
+                 formControlName="estado"
+                 (click)="loadState(form.get('pais')?.value)"
+                 [nzShowArrow]="false" >
+        <nz-option *ngFor="let state of states"
+                   [nzLabel]="state.state_name" [nzValue]="state.state_name"></nz-option>
+      </nz-select>
+    </div>
+    <div class="select">
+      <nz-select nzShowSearch
+                 nzSize="large"
+                 nzAllowClear
+                 nzPlaceHolder="Ingresa la ciudad"
+                 formControlName="ciudad"
+                 (click)="loadCities(form.get('estado')?.value)"
+                 [nzShowArrow]="false" >
+        <nz-option *ngFor="let city of cities"
+                   [nzLabel]="city.city_name" [nzValue]="city.city_name"></nz-option>
+        <nz-option *ngIf="cities.length === 0" [nzLabel]="form.get('estado')?.value"
+                   [nzValue]="form.get('estado')?.value"></nz-option>
+      </nz-select>
+    </div>
+    <div>
+      <button type="submit" [nzLoading]="loading"
+              nz-button
+              [disabled]="form.invalid" nzSize="large">
+        <i nz-icon nzType="search"></i>
+        Buscar
+      </button>
+    </div>
+  </form>
+  <div class="second-content">
+    <h3>NO SABES DONDE IR?</h3>
+    <button routerLink="../living-room" nz-button nzSize="large">
+      <i class="material-icons">&#xe195;</i>
+      Descubre un poco
+    </button>
+  </div>
+</div>

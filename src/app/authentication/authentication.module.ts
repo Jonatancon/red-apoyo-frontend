@@ -7,6 +7,8 @@ import { NewUserComponent } from './page/new-user/new-user.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MaterialModule} from "../material/material.module";
 import { LayoutComponent } from './moduls/layout/layout.component';
+import {ZorroModule} from "../zorro/zorro.module";
+import {SharedModule} from "../shared/shared.module";
 
 
 @NgModule({
@@ -21,6 +23,8 @@ import { LayoutComponent } from './moduls/layout/layout.component';
     ReactiveFormsModule,
     MaterialModule,
     FormsModule,
+    ZorroModule,
+    SharedModule
   ]
 })
 export class AuthenticationModule { }
