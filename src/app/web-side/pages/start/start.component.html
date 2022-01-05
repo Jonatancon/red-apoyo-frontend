@@ -54,3 +54,25 @@
     </button>
   </div>
 </div>
+<div class="secret" *ngIf="loadingHouse">
+  <nz-divider [nzText]="titleConsult"></nz-divider>
+  <nz-skeleton  [nzLoading]="!loadingHouse" [nzParagraph]="{ rows: 8 }" [nzActive]="true">
+    <nz-empty
+      *ngIf="houses.length === 0; else renderHouse"
+      nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+      [nzNotFoundContent]="contentTpl"
+    >
+      <ng-template #contentTpl>
+        <span>
+          No se encontraron Viviendas
+        </span>
+      </ng-template>
+    </nz-empty>
+    <ng-template #renderHouse>
+      <app-houses
+        [houseId]="houseId"
+        [houses]="houses"
+      ></app-houses>
+    </ng-template>
+  </nz-skeleton>
+</div>

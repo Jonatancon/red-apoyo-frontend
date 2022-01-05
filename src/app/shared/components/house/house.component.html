@@ -4,7 +4,7 @@
 </nz-card>
 
 <ng-template #coverTemplate>
-  <a [routerLink]="['.', house.idCasa]">
+  <a [routerLink]="['/home/living-room', house.idCasa]">
     <app-img
       *ngIf="house.urlFoto"
       [img] = "house.urlFoto"

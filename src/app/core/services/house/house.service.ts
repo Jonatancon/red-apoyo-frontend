@@ -4,6 +4,7 @@ import {HouseModel} from "../../models/house.model";
 import {environment} from "../../../../environments/environment";
 import {MessageModel} from "../../models/message.model";
 import {checkApi} from "../../interceptor/generic/generic.interceptor";
+import {CriterioBusquedaModel} from "../../models/criterioBusqueda.model";
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +29,9 @@ export class HouseService {
 
   getOneHouse(id:String) {
     return this.httpClient.get<HouseModel>(`${this.urlHouse}/casas/busqueda/${id}`);
+  }
+
+  getAllHousesForCriterial(criterio: CriterioBusquedaModel) {
+    return this.httpClient.post<HouseModel[]>(`${this.urlHouse}/casas/busqueda/criterio`, criterio);
   }
 }
