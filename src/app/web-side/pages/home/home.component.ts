@@ -27,8 +27,7 @@ export class HomeComponent implements OnInit {
       });
     this.route.queryParamMap.subscribe(params => {
       this.houseId = params.get('house');
-      console.log(this.houseId);
-    })
+    });
   }
 
 }
