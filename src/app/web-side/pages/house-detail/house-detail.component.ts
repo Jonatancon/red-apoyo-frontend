@@ -71,7 +71,7 @@ export class HouseDetailComponent implements OnInit {
         'Se requiere que inicie seccion para poder reservar la casa');
       this.navigate.navigate(['/user/login']);
     }else{
-      this.form.get('idCasa')?.setValue(this.houseId);
+      this.form.get('iDcasa')?.setValue(this.houseId);
       this.form.get('fechaInicial')?.setValue(
         formatDate(this.form.get('fechaInicial')?.value, 'dd/MM/yyyy', 'en-Us'));
       this.form.get('fechaFinal')?.setValue(
@@ -80,19 +80,25 @@ export class HouseDetailComponent implements OnInit {
       this.reservaService.saveReserva(this.form.value).subscribe(
         (data) => {
           this.createNotificacion('success', 'Reserva Guardada',
-            `Su reserva esta hecha fecha de llegada: ${data.fechaInicial} fecha de salida: ${data.fechaFinal}`);
+            `Su reserva esta hecha, fecha de llegada: ${data.fechaInicial} fecha de salida: ${data.fechaFinal}`);
+          this.loadingReserva = false;
         },
         (error) => {
-          this.createNotificacion('error', 'Error', error.message);
+          this.createNotificacion('error', 'Error',
+            `Lo sentimos La fecha que selecciono ya esta recervada......: ${error.error.message}`);
+          this.loadingReserva = false;
         });
     }
   }
 
   buildForm() {
     this.form = this.formsBuilder.group({
-      idCasa:[''],
+      iDcasa:[''],
       fechaInicial: ['', [Validators.required]] ,
-      fechaFinal: ['', [Validators.required]]
+      fechaFinal: ['', [Validators.required]],
+      usuarioReserver: [''],
+      calificoUsuario: [''],
+      calificoAnfitrion: [''],
     });
   }
 
@@ -110,6 +116,8 @@ export class HouseDetailComponent implements OnInit {
       )
       .subscribe( (data) => {
         this.house = data;
+        // @ts-ignore
+        this.img = data.urlFoto;
         this.loading = false;
       });
   }

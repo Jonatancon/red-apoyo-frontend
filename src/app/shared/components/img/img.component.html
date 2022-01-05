@@ -1,8 +1,9 @@
 <img
   nz-image
+  nzDisablePreview="true"
   (load)="imgLoaded()"
   (error)="imgError()"
-  [src]="img"
+  [nzSrc]="img"
   *ngIf="img; else elseImg"
 >
 

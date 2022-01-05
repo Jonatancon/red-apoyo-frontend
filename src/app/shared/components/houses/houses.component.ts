@@ -37,6 +37,7 @@ export class HousesComponent implements OnInit {
     this.houseService.getOneHouse(id).subscribe(
       (data) => {
         this.houseChosen = data;
+        this.img = data.urlFoto;
         this.statusDetail = 'success';
       },
       (error) =>{
