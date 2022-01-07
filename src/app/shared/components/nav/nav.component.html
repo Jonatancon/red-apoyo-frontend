@@ -29,7 +29,7 @@
         </a>
       </li>
       <li nz-menu-item *ngIf="tokenService.isLogged()">
-        <a routerLink="">
+        <a routerLink="{{ tokenService.isAnfitrion()? '/profile/profile-anfitrion': '/profile/profile-user' }}">
           <span class="material-icons">manage_accounts</span>
           Perfil de {{tokenService.getUserName()}}
         </a>

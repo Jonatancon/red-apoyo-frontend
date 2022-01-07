@@ -24,4 +24,10 @@ export class ReservaService {
   getAllReservedFromHouse(id:string) {
     return this.httpClient.get<DisponibilidadModel[]>(`${this.urlReserva}/obtener/${id}`)
   }
+
+  getAllReservasFromUserName(id:string | null) {
+    return this.httpClient.get<DisponibilidadModel[]>(`${this.urlReserva}/obtener/user/${id}`, {
+      context: checkApi()
+    });
+  }
 }
