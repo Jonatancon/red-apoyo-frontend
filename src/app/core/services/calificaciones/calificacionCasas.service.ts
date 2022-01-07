@@ -25,4 +25,8 @@ export class CalificacionCasasService {
   getAllCalificacionesByIdCasa(id: string) {
     return this.httpClient.get<CalificacionCasaModel[]>(`${this.calificacionUrl}/obtener/${id}`);
   }
+
+  getAllCalificacionesByUserName(id:string) {
+    return this.httpClient.get<CalificacionCasaModel[]>(`${this.calificacionUrl}/obtener/name/${id}`);
+  }
 }

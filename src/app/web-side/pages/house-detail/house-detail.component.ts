@@ -14,6 +14,8 @@ import {CalificacionCasaModel} from "../../../core/models/calificacionCasa.model
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import {NzNotificationService} from "ng-zorro-antd/notification";
+import {UserModel} from "../../../core/models/user.model";
+import {UserService} from "../../../core/services/authentication/user.service";
 registerLocaleData(en);
 
 @Component({
@@ -27,12 +29,15 @@ export class HouseDetailComponent implements OnInit {
   reputacion: number = 0;
   reputacionAnfitrion: number = 0;
   house: HouseModel | null = null;
+  user: UserModel | null = null;
   reserva: DisponibilidadModel | null = null;
-  calificacion: CalificacionCasaModel[]   = [];
+  calificacion: CalificacionCasaModel[] | null   = [];
   img: string = '';
   imgDefault: string = './assets/img/default.jpg'
   loading = true;
   loadingReserva = false;
+  loadingComentarios = true;
+  infoUser = false;
 
   // @ts-ignore
   form: FormGroup
@@ -46,7 +51,8 @@ export class HouseDetailComponent implements OnInit {
     private navigate: Router,
     private formsBuilder: FormBuilder,
     private calificacionCasa: CalificacionCasasService,
-    private notificacion: NzNotificationService
+    private notificacion: NzNotificationService,
+    private userService: UserService
   ) {
     this.buildForm();
   }
@@ -82,6 +88,8 @@ export class HouseDetailComponent implements OnInit {
           this.createNotificacion('success', 'Reserva Guardada',
             `Su reserva esta hecha, fecha de llegada: ${data.fechaInicial} fecha de salida: ${data.fechaFinal}`);
           this.loadingReserva = false;
+          this.navigate.navigate(
+            [this.tokenService.isAnfitrion()?'/profile/profile-anfitrion':'/profile/profile-user']);
         },
         (error) => {
           this.createNotificacion('error', 'Error',
@@ -134,21 +142,38 @@ export class HouseDetailComponent implements OnInit {
             return [null];
           })
       )
-      .pipe(
-        // @ts-ignore
-        map(value => value.map(item => {
-          this.reputacion += item.puntajeCasa;
-          this.reputacionAnfitrion += item.puntajeAnfitrion;
-        }))
-      )
       .subscribe( (data) => {
-        // @ts-ignore
         this.calificacion = data;
+        this.loadingComentarios = false;
+        // @ts-ignore
+        data.map( item => {
+          this.reputacion+= item.puntajeCasa;
+        });
       });
   }
 
   createNotificacion(type: string, title: string, content: string){
     this.notificacion.create(type, title, content);
+  }
+
+  open() {
+    this.infoUser = true;
+    // @ts-ignore
+    this.userService.dataUser(this.house?.idPropietario).subscribe(
+      (data) => {
+        this.user = data;
+      }
+    );
+    // @ts-ignore
+    this.calificacionCasa.getAllCalificacionesByUserName(this.house?.idPropietario).pipe(
+      map(data => data.map(item => {
+        this.reputacionAnfitrion+= item.puntajeAnfitrion;
+      }))
+    ).subscribe();
+  }
+
+  close() {
+    this.infoUser = false;
   }
 
 }

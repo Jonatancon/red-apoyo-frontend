@@ -7,12 +7,17 @@ import { LayoutComponent } from './components/layout/layout.component';
 import {MaterialModule} from "../material/material.module";
 import {SharedModule} from "../shared/shared.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { AnfitrionComponent } from './pages/anfitrion/anfitrion.component';
+import { UsuarioComponent } from './pages/usuario/usuario.component';
+import {ZorroModule} from "../zorro/zorro.module";
 
 
 @NgModule({
   declarations: [
     NewhouseComponent,
-    LayoutComponent
+    LayoutComponent,
+    AnfitrionComponent,
+    UsuarioComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +25,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     MaterialModule,
     ReactiveFormsModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    ZorroModule
   ]
 })
 export class ProfileModule { }

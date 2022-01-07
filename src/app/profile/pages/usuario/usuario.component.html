@@ -1,0 +1,99 @@
+<div class="grid">
+  <div class="profile">
+    <nz-skeleton [nzLoading]="loadingUser" [nzActive]="true">
+      <nz-descriptions nzTitle="Informacion del Usuario"  [nzColumn]="2">
+        <nz-descriptions-item nzTitle="Nombre de Usuario">{{ userName }}</nz-descriptions-item>
+        <nz-divider [nzText]="'Datos de Residencia'"></nz-divider>
+        <nz-descriptions-item nzTitle="Pais">{{ user?.pais }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Estado">{{ user?.estado }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Ciudad">{{ user?.ciudad }}</nz-descriptions-item>
+        <nz-divider [nzText]="'Datos Personales'"></nz-divider>
+        <nz-descriptions-item nzTitle="Nombres">{{ user?.nombres }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Apellidos">{{ user?.apellidos }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Rango de Puntuacion">
+          <nz-rate [ngModel]="puntaje" nzAllowHalf nzDisabled></nz-rate>
+        </nz-descriptions-item>
+      </nz-descriptions>
+    </nz-skeleton>
+  </div>
+  <div class="reservas">
+    <nz-divider [nzText]="'Reservas Hechas'"></nz-divider>
+    <nz-skeleton [nzLoading]="loadingReservas" [nzActive]="true">
+      <nz-table #table [nzData]="reservas">
+        <thead>
+        <tr>
+          <th>Fecha de llegada</th>
+          <th>Fecha de Salida</th>
+          <th>Ver datos de la casa</th>
+          <th>Valorar Casa</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of reservas">
+          <td>{{data.fechaInicial}}</td>
+          <td>{{data.fechaFinal}}</td>
+          <td><a (click)="onShowDetail(data.iDcasa? data.iDcasa: '')">Ver Detalles</a></td>
+          <td><a (click)="handleOpen(data.iDcasa? data.iDcasa: '')" >Puntuar</a></td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </nz-skeleton>
+  </div>
+  <div class="comentarios">
+    <nz-comment *ngFor="let data of calificacion" nzAuthor="{{ data.anfitrionCalificador }}">
+      <nz-avatar
+        nz-comment-avatar
+        nzIcon="user"
+        nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+      ></nz-avatar>
+      <nz-comment-content>
+        <p>
+          {{ data.comentario }}
+        </p>
+        <nz-rate [ngModel]="data.calificacion" nzAllowHalf nzDisabled></nz-rate>
+      </nz-comment-content>
+    </nz-comment>
+  </div>
+</div>
+
+<nz-drawer [nzVisible]="showHouseDetail" [nzWidth]="640" [nzClosable]="false" (nzOnClose)="close()">
+  <ng-container *nzDrawerContent>
+    <p class="title"> Detalles de la Vivienda</p>
+    <div>
+      <img *ngIf="img; else elseImg" [src]="img" alt=""
+           (error)="imgError()"
+      >
+      <ng-template #elseImg>
+        <img [src]="imgDefault" alt="">
+      </ng-template>
+    </div>
+    <nz-divider></nz-divider>
+    <nz-descriptions [nzColumn]="2" nzTitle="Informacion de la Vivienda">
+      <nz-descriptions-item nzTitle="Pais De origen" [nzSpan]="1">{{ houseChosen?.pais }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Estado" [nzSpan]="1">{{ houseChosen?.estado }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Ciudad" [nzSpan]="1">{{ houseChosen?.ciudad }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Direccion" [nzSpan]="1">{{ houseChosen?.direccion }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Telefono" [nzSpan]="1">{{ houseChosen?.telefono }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Propietario" [nzSpan]="1">{{ houseChosen?.idPropietario }}</nz-descriptions-item>
+    </nz-descriptions>
+  </ng-container>
+</nz-drawer>
+
+<nz-modal [(nzVisible)]="showModal"
+          nzTitle="Puntuar Vivienda"
+          (nzOnCancel)="handleCancel()"
+          [nzOkDisabled]="form.invalid"
+          nzOkText="Guardar Valoracion"
+          nzCancelText="Cancelar"
+          (nzOnOk)="onSavePuntuacion($event)">
+  <ng-container *nzModalContent>
+    <form [formGroup]="form">
+      <p>Como estuvo la vivienda: </p>
+      <nz-rate nzAllowHalf formControlName="puntajeCasa"></nz-rate>
+      <p>Como fue el comportamiento del anfitrion: </p>
+      <nz-rate nzAllowHalf formControlName="puntajeAnfitrion"></nz-rate>
+      <p>Cuentanos un poco de como fue tu experiencia: </p>
+      <textarea rows="4" nz-input formControlName="comentario" ></textarea>
+    </form>
+  </ng-container>
+</nz-modal>

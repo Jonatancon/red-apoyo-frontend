@@ -38,4 +38,8 @@ export class UserService {
       );
   }
 
+  dataUser(id: string | null) {
+    return this.httpClient.get<UserModel>(`${this.urlUser}/data-user/${id}`);
+  }
+
 }

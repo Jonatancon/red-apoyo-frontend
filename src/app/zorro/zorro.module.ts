@@ -26,6 +26,8 @@ import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
@@ -60,7 +62,9 @@ registerLocaleData(en);
     NzPageHeaderModule,
     NzNotificationModule,
     NzCheckboxModule,
-    NzEmptyModule
+    NzEmptyModule,
+    NzTableModule,
+    NzModalModule
   ],
   exports: [
     NzLayoutModule,
@@ -87,7 +91,9 @@ registerLocaleData(en);
     NzPageHeaderModule,
     NzNotificationModule,
     NzCheckboxModule,
-    NzEmptyModule
+    NzEmptyModule,
+    NzTableModule,
+    NzModalModule
   ],
   providers   : [
     { provide: NZ_I18N, useValue: en_US }

@@ -10,7 +10,8 @@
     <div nz-row>
       <div nz-col nzSpan="15">
         <div class="img">
-          <nz-rate [ngModel]="reputacion" nzAllowHalf [nzDisabled]="true"></nz-rate>
+          <nz-rate *ngIf="calificacion" [ngModel]="reputacion / calificacion.length"
+                   nzAllowHalf [nzDisabled]="true"></nz-rate>
           <img nz-image [nzSrc]="img" alt="">
         </div>
         <nz-divider></nz-divider>
@@ -20,7 +21,9 @@
           <nz-descriptions-item nzTitle="Ciudad">{{ house?.ciudad }}</nz-descriptions-item>
           <nz-descriptions-item nzTitle="Disreccion">{{ house?.direccion }}</nz-descriptions-item>
           <nz-descriptions-item nzTitle="Telefono">{{ house?.telefono }}</nz-descriptions-item>
-          <nz-descriptions-item nzTitle="Propietario">{{ house?.idPropietario }}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Propietario">
+            <a (click)="open()">{{ house?.idPropietario }}</a>
+          </nz-descriptions-item>
         </nz-descriptions>
       </div>
       <div nz-col nzSpan="9">
@@ -46,19 +49,39 @@
     </div>
     <div nz-row>
       <div nz-col>
-        <nz-comment *ngFor="let coment of calificacion" nzAuthor="{{ coment.idUsuario }}">
-          <nz-avatar
-            nz-comment-avatar
-            nzIcon="user"
-            nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png">
-          </nz-avatar>
-          <nz-comment-content>
-            <p>
-              {{ coment.comentario }}
-            </p>
-          </nz-comment-content>
-        </nz-comment>
+        <nz-skeleton [nzLoading]="loadingComentarios">
+          <nz-divider [nzText]="'Comentarios'"></nz-divider>
+          <nz-comment *ngFor="let coment of calificacion" nzAuthor="{{ coment.idUsuario }}">
+            <nz-avatar
+              nz-comment-avatar
+              nzIcon="user"
+              nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png">
+            </nz-avatar>
+            <nz-comment-content>
+              <p>
+                {{ coment?.comentario }}
+              </p>
+            </nz-comment-content>
+          </nz-comment>
+        </nz-skeleton>
       </div>
     </div>
   </div>
 </nz-skeleton>
+
+<nz-drawer [nzVisible]="infoUser" [nzWidth]="640" [nzClosable]="false" (nzOnClose)="close()">
+  <ng-container *nzDrawerContent>
+    <p class="title">Informacion del Anfitrion</p>
+    <nz-divider></nz-divider>
+    <nz-descriptions [nzColumn]="2" nzTitle="Informacion de la Vivienda">
+      <nz-descriptions-item nzTitle="Pais De origen" [nzSpan]="1">{{ user?.pais }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Estado" [nzSpan]="1">{{ user?.estado }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Ciudad" [nzSpan]="1">{{ user?.ciudad }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Nombres" [nzSpan]="1">{{ user?.nombres }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Apellidos" [nzSpan]="1">{{ user?.apellidos }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Valoracion" [nzSpan]="1">
+        <nz-rate *ngIf="calificacion" [ngModel]="reputacionAnfitrion / calificacion.length " nzDisabled></nz-rate>
+      </nz-descriptions-item>
+    </nz-descriptions>
+  </ng-container>
+</nz-drawer>
